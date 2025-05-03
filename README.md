@@ -7,7 +7,7 @@ get gud at vim motions with snake (move with hjkl)
 make sure you have the ncurses library installed on your system
 
 ```sh
-git clone ...
+git clone https://github.com/leanghok120/vim-snake.git
 cd vim-snake
 gcc -o snake snake.c -lncurses
 ```
