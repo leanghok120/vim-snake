@@ -17,6 +17,22 @@ int displayScore(int score, WINDOW* win) {
   return 0;
 }
 
+int displaySnake(int posX, int posY, WINDOW* win) {
+  wattron(win, COLOR_PAIR(2));
+  mvwaddstr(win, posY, posX, "s");
+  wattroff(win, COLOR_PAIR(2));
+
+  return 0;
+}
+
+int displayFood(int foodX, int foodY, WINDOW* win) {
+  wattron(win, COLOR_PAIR(1));
+  mvwaddstr(win, foodY, foodX, "f");
+  wattroff(win, COLOR_PAIR(1));
+
+  return 0;
+}
+
 int main() {
   WINDOW* win = initscr();
 
@@ -40,8 +56,8 @@ int main() {
   int posX = 1;
   int posY = 1;
   srand(time(NULL));
-  int foodX = rand() % COLS - 1;
-  int foodY = rand() % LINES - 1;
+  int foodX = rand() % COLS - 2;
+  int foodY = rand() % LINES - 2;
   int dirX = 1;
   int dirY = 0;
   int score = 0;
@@ -72,17 +88,13 @@ int main() {
 
     displayScore(score, win);
 
-    wattron(win, COLOR_PAIR(2));
-    mvwaddstr(win, posY, posX, "s");
-    wattroff(win, COLOR_PAIR(2));
+    displaySnake(posX, posY, win);
 
-    wattron(win, COLOR_PAIR(1));
-    mvwaddstr(win, foodY, foodX, "f");
-    wattroff(win, COLOR_PAIR(1));
+    displayFood(foodX, foodY, win);
 
     if (posX == foodX && posY == foodY) {
-      foodX = rand() % 20;
-      foodY = rand() % 20;
+      foodX = rand() % COLS - 2;
+      foodY = rand() % LINES - 2;
       score++;
     }
 
