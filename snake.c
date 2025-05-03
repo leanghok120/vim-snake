@@ -5,13 +5,13 @@
 #include <unistd.h>
 
 int displayScore(int score, WINDOW* win) {
-  int scoreX = 1;
+  int scoreX = COLS - 2;
   int scoreY = 1;
   char scoremsg[10];
   sprintf(scoremsg, "%d", score) ;
-  wattron(win, COLOR_PAIR(3));
+  wattron(win, COLOR_PAIR(3) | A_BOLD);
   mvwaddstr(win, scoreY, scoreX, scoremsg);
-  wattroff(win, COLOR_PAIR(3));
+  wattroff(win, COLOR_PAIR(3) | A_BOLD);
 
   return 0;
 }
@@ -68,15 +68,15 @@ int main() {
     wclear(win);
     box(win, 0, 0);
 
-    wattron(win, COLOR_PAIR(1));
-    mvwaddstr(win, foodY, foodX, "f");
-    wattroff(win, COLOR_PAIR(1));
+    displayScore(score, win);
 
     wattron(win, COLOR_PAIR(2));
     mvwaddstr(win, posY, posX, "s");
     wattroff(win, COLOR_PAIR(2));
 
-    displayScore(score, win);
+    wattron(win, COLOR_PAIR(1));
+    mvwaddstr(win, foodY, foodX, "f");
+    wattroff(win, COLOR_PAIR(1));
 
     if (posX == foodX && posY == foodY) {
       foodX = rand() % 20;
