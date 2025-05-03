@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 
 int displayScore(int score, WINDOW* win) {
@@ -38,8 +39,9 @@ int main() {
 
   int posX = 1;
   int posY = 1;
-  int foodX = rand() % 20;
-  int foodY = rand() % 20;
+  srand(time(NULL));
+  int foodX = rand() % COLS - 1;
+  int foodY = rand() % LINES - 1;
   int dirX = 1;
   int dirY = 0;
   int score = 0;
