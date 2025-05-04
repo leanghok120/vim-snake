@@ -14,7 +14,7 @@ gcc -o snake snake.c -lncurses
 
 ## todos
 
-- [ ] make snake grow
+- [x] make snake grow
 - [ ] display score in game over screen
 - [ ] add highest score
 - [ ] add a main menu with settings and stuff

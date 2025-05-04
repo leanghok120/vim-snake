@@ -53,11 +53,12 @@ int main() {
   nodelay(win, true);
   noecho();
 
-  int posX = 1;
-  int posY = 1;
+  int posX[100] = {1};
+  int posY[100] = {1};
+  int length = 1;
   srand(time(NULL));
-  int foodX = rand() % COLS - 2;
-  int foodY = rand() % LINES - 2;
+  int foodX = rand() % (COLS - 2) + 1;
+  int foodY = rand() % (LINES - 2) + 1;
   int dirX = 1;
   int dirY = 0;
   int score = 0;
@@ -80,25 +81,36 @@ int main() {
       dirX = 0;
       dirY = 1;
     }
-    posX += dirX;
-    posY += dirY;
+    int newX = posX[0] + dirX;
+    int newY = posY[0] + dirY;
+
+    // shift array
+    for (int i = length; i > 0; i--) {
+      posX[i] = posX[i - 1];
+      posY[i] = posY[i - 1];
+    }
+    posX[0] = newX;
+    posY[0] = newY;
 
     wclear(win);
     box(win, 0, 0);
 
     displayScore(score, win);
 
-    displaySnake(posX, posY, win);
+    for (int i = 0; i < length; i++) {
+      displaySnake(posX[i], posY[i], win);
+    }
 
     displayFood(foodX, foodY, win);
 
-    if (posX == foodX && posY == foodY) {
-      foodX = rand() % COLS - 2;
-      foodY = rand() % LINES - 2;
+    if (posX[0] == foodX && posY[0] == foodY) {
+      foodX = rand() % (COLS - 2) + 1;
+      foodY = rand() % (LINES - 2) + 1;
       score++;
+      length++;
     }
 
-    if (posX == 0 || posX == COLS - 1 || posY == 0 || posY == LINES - 1) {
+    if (posX[0] == 0 || posX[0] == COLS - 1 || posY[0] == 0 || posY[0] == LINES - 1) {
       wclear(win);
       box(win, 0, 0);
 
